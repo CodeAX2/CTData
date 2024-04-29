@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -26,20 +24,22 @@ public class DataMesher : MonoBehaviour {
 	/// </summary>
 	public DataController DataController;
 
-	private float previousSurfaceValue = 0;
 
 	// Start is called before the first frame update
 	void Start() {
 
+		// Obtain the data
 		float[,,] data = DataController.DataLoader.LoadData();
 
+		// Initialize marching cubes
 		marchingCubes = new MarchingCubes(ResolutionScale, SurfaceValue);
 
+		// Perform marching cubes
 		List<Vector3> vertices = new List<Vector3>();
 		List<int> indices = new List<int>();
-
 		marchingCubes.MarchAll(data, vertices, indices);
 
+		// Create the mesh for Unity to render
 		Mesh mesh = new Mesh();
 		mesh.indexFormat = IndexFormat.UInt32;
 		mesh.SetVertices(vertices);
@@ -52,8 +52,6 @@ public class DataMesher : MonoBehaviour {
 		GetComponent<Renderer>().material =
 			new Material(Shader.Find("Standard"));
 		meshFilter.mesh = mesh;
-
-		previousSurfaceValue = SurfaceValue;
 	}
 	
 }

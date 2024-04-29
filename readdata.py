@@ -1,4 +1,3 @@
-import numpy as np
 import nrrd
 
 filename = 'CTA-cardio.nrrd'
@@ -8,9 +7,7 @@ readdata, header = nrrd.read(filename)
 print(readdata.shape)
 print(header)
 
-# print(readdata[200][200])
-
-out_file = open('output.txt', 'w')
+out_file = open('data.txt', 'w')
 out_file.write(str(readdata.shape[0]) + '\n')
 out_file.write(str(readdata.shape[1]) + '\n')
 out_file.write(str(readdata.shape[2]) + '\n')
